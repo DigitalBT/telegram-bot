@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
-
-TOKEN = "8674155981:AAEk7WFr571duMIKQtlE4BQizdgnMqic9j0"
+import os
+TOKEN = os.getenv("BOT_TOKEN")
 
 responses = [
     ([
