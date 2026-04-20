@@ -1,9 +1,3 @@
-Я делал ТГ бота через GitHub и raliway.
-сейчас отправлю тебе код где в коде есть кнопки. они так: 1 строка - 1 кнопка, и таких у меня 9 строк.
-Я хочу сделать 2 кнопки в одной строке.
-Самая первая кнопка пусть будет отдельно. То есть 1 строка одна кнопка, а остальные строки по две кнопки.
-
-
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 import os
