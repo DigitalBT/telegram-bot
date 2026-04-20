@@ -94,7 +94,7 @@ def main_menu():
 
         [
             InlineKeyboardButton("🌐 Сайт", url="https://blacktab.ru"),
-            InlineKeyboardButton("📱 ВКонтакте", url="https://vk.com/Blacktab_official"),
+            InlineKeyboardButton("📱 ВК", url="https://vk.com/Blacktab_official"),
             InlineKeyboardButton("▶️ YouTube", url="https://www.youtube.com/@Blacktab_official")
         ]
     ])
