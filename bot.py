@@ -78,22 +78,27 @@ responses = [
 # 📌 ГЛАВНОЕ МЕНЮ (НОВЫЙ ПОРЯДОК 1–9)
 def main_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📃 Правила", callback_data="rules")],  # 1 строка — 1 кнопка
+        # 1 строка — 1 кнопка
+        [InlineKeyboardButton("📃 Правила", callback_data="rules")],
 
-        # дальше по 2 кнопки в строке
+        # 2 строка — 1 кнопка
+        [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
+
+        # 3 строка — 2 кнопки
         [
-            InlineKeyboardButton("💳 Цена/Наличие", callback_data="price"),
-            InlineKeyboardButton("📍 Магазины", callback_data="shops")
+            InlineKeyboardButton("📍 Магазины", callback_data="shops"),
+            InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")
         ],
+
+        # 4 строка — 2 кнопки
         [
-            InlineKeyboardButton("📦 Доставки нет", callback_data="delivery"),
-            InlineKeyboardButton("❓ Обратная связь", callback_data="help")
+            InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
+            InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")
         ],
+
+        # 5 строка — 3 кнопки
         [
-            InlineKeyboardButton("🏢 Франшиза", callback_data="franchise"),
-            InlineKeyboardButton("🌐 Сайт", callback_data="site")
-        ],
-        [
+            InlineKeyboardButton("🌐 Сайт", callback_data="site"),
             InlineKeyboardButton("📱 ВКонтакте", callback_data="vk"),
             InlineKeyboardButton("▶️ YouTube", callback_data="youtube")
         ]
