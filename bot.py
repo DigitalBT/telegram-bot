@@ -70,7 +70,7 @@ responses = [
         [
             "открыт", "открыто"
         ],
-        "Магазины BlackTab на Яндекс Картах — https://yandex.com/maps/213/moscow/chain/blacktab/41361998584"
+        "Магазины BlackTab — https://blacktab.ru/map"
     ),
 ]
 
@@ -81,6 +81,10 @@ def main_menu():
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
         [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
         [InlineKeyboardButton("❓ Обратная связь", callback_data="help")],
+
+        # ➕ НОВАЯ КНОПКА
+        [InlineKeyboardButton("📦 Цена/Наличие", callback_data="price")],
+
         [InlineKeyboardButton("📦 Доставки — нет", callback_data="delivery")],
         [InlineKeyboardButton("🌐 Сайт", callback_data="site")],
         [InlineKeyboardButton("📱 ВКонтакте", callback_data="vk")],
@@ -151,6 +155,14 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "help":
         await query.edit_message_text(
             "❓ Обратная связь: otzyv@blacktab.ru",
+            reply_markup=back_button()
+        )
+
+    elif data == "price":
+        await query.edit_message_text(
+            "📦 Цена/Наличие:\n\n"
+            "Информацию о стоимости и актуальном наличии товаров просьба уточнять непосредственно в интересующем магазине.\n\n"
+            "Карта магазинов BlackTab — https://blacktab.ru/map",
             reply_markup=back_button()
         )
 
