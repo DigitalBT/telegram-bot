@@ -156,7 +156,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "delivery":
         await query.edit_message_text(
-            "📦 Доставки:\nК сожалению, мы не осуществляем доставку. По законодательству РФ доставка никотиносодержащей продукции запрещена.",
+            "К сожалению, мы не осуществляем доставку. По законодательству РФ доставка никотиносодержащей продукции запрещена.",
             reply_markup=back_button()
         )
 
