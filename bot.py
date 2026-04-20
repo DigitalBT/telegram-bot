@@ -80,7 +80,7 @@ def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("📜 Правила", callback_data="rules")],
         [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
-        [InlineKeyboardButton("❓ Обратная связь", callback_data="help")]
+        [InlineKeyboardButton("❓ Помощь", callback_data="help")]
     ])
 
 
@@ -91,7 +91,7 @@ def back_button():
     ])
 
 
-# 💬 Обычные сообщения (ВАШ КОД НЕ ТРОГАЮ)
+# 💬 Обычные сообщения
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
@@ -102,7 +102,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 return
 
 
-# 👋 Приветствие с кнопками (ТОЛЬКО ДОБАВИЛ МЕНЮ)
+# 👋 Приветствие с кнопками
 async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for user in update.message.new_chat_members:
         await update.message.reply_text(
@@ -111,7 +111,7 @@ async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE)
         )
 
 
-# 🔘 Обработка кнопок (ДОБАВЛЕНА НАВИГАЦИЯ)
+# 🔘 Обработка кнопок
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -120,28 +120,21 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data == "rules":
         await query.edit_message_text(
-            "📜 Правила: Доводим до вашего сведения: вся информация в сообществе носит ознакомительный характер.
-
-Вступая в «BlackTab», вы подтверждаете, что достигли 18-летнего возраста.
-
-
-📃 Общие правила:
-• Соблюдайте уважение к другим участникам.
-• Избегайте провокаций и не участвуйте в конфликтах.
-
-
-❗️ Нарушения, влекущие блокировку без права восстановления:
-• Спам и флуд.
-• Реклама.
-• Оскорбления и нецензурная лексика.
-• Разжигание ненависти (в том числе по политическим мотивам).
-• Введение в заблуждение.
-• Продажа, покупка или обмен любыми товарами.
-• Публикация материалов 18+.
-• Дискриминация по любым признакам (раса, пол, возраст, религия, профессия, ориентация и т.д.).
-
-
-Участник, нарушивший правила, будет заблокирован без возможности восстановления доступа к каналу/чату!",
+            "Доводим до вашего сведения: вся информация в сообществе носит ознакомительный характер.\n\n"
+            "Вступая в «BlackTab», вы подтверждаете, что достигли 18-летнего возраста.\n\n"
+            "📃 Общие правила:\n"
+            "• Соблюдайте уважение к другим участникам.\n"
+            "• Избегайте провокаций и не участвуйте в конфликтах.\n\n"
+            "❗️ Нарушения, влекущие блокировку без права восстановления:\n"
+            "• Спам и флуд.\n"
+            "• Реклама.\n"
+            "• Оскорбления и нецензурная лексика.\n"
+            "• Разжигание ненависти (в том числе по политическим мотивам).\n"
+            "• Введение в заблуждение.\n"
+            "• Продажа, покупка или обмен любыми товарами.\n"
+            "• Публикация материалов 18+.\n"
+            "• Дискриминация по любым признакам (раса, пол, возраст, религия, профессия, ориентация и т.д.).\n\n"
+            "Участник, нарушивший правила, будет заблокирован без возможности восстановления доступа к каналу/чату!",
             reply_markup=back_button()
         )
 
@@ -153,7 +146,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "help":
         await query.edit_message_text(
-            "❓ Почта для обратной связи: otzyv@blacktab.ru",
+            "❓ Поддержка: otzyv@blacktab.ru",
             reply_markup=back_button()
         )
 
