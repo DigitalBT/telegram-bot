@@ -99,7 +99,7 @@ def main_menu():
         # 5 строка — 3 кнопки
         [
             InlineKeyboardButton("🌐 Сайт", callback_data="site"),
-            InlineKeyboardButton("📱 ВКонтакте", callback_data="vk"),
+            InlineKeyboardButton("📱 ВК", callback_data="vk"),
             InlineKeyboardButton("▶️ YouTube", callback_data="youtube")
         ]
     ])
