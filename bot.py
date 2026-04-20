@@ -78,29 +78,24 @@ responses = [
 # 📌 ГЛАВНОЕ МЕНЮ (НОВЫЙ ПОРЯДОК 1–9)
 def main_menu():
     return InlineKeyboardMarkup([
-        # 1 строка — 1 кнопка
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
 
-        # 2 строка — 1 кнопка
         [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
 
-        # 3 строка — 2 кнопки
         [
-            InlineKeyboardButton("📍 Магазины", callback_data="shops"),
+            InlineKeyboardButton("📍 Магазины", url="https://blacktab.ru/map"),
             InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")
         ],
 
-        # 4 строка — 2 кнопки
         [
             InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
             InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")
         ],
 
-        # 5 строка — 3 кнопки
         [
-            InlineKeyboardButton("🌐 Сайт", callback_data="site"),
-            InlineKeyboardButton("📱 ВК", callback_data="vk"),
-            InlineKeyboardButton("▶️ YouTube", callback_data="youtube")
+            InlineKeyboardButton("🌐 Сайт", url="https://blacktab.ru"),
+            InlineKeyboardButton("📱 ВКонтакте", url="https://vk.com/Blacktab_official"),
+            InlineKeyboardButton("▶️ YouTube", url="https://www.youtube.com/@Blacktab_official")
         ]
     ])
 
