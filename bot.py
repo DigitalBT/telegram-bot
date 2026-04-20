@@ -81,14 +81,39 @@ responses = [
 
 
 
+import re
+
+def normalize(text):
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', '', text)
+    return text
+
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower()
+    text = normalize(update.message.text)
+
+    best_match = None
+    best_score = 0
 
     for keywords, response in responses:
+        score = 0
+
         for key in keywords:
+            key = normalize(key)
+
             if key in text:
-                await update.message.reply_text(response)
-                return
+                score += len(key)
+
+        if score > best_score:
+            best_score = score
+            best_match = response
+
+    if best_match:
+        await update.message.reply_text(best_match)
+    else:
+        await update.message.reply_text(
+            "Не совсем понял вас 🙃 Напишите подробнее или уточните вопрос."
+        )
 
 
 app = ApplicationBuilder().token(TOKEN).build()
