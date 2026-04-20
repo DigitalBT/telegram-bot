@@ -122,9 +122,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for user in update.message.new_chat_members:
         await update.message.reply_text(
-            f"Добро пожаловать в BlackTab, {user.first_name}! 👋\n\nВыберите, что вас интересует:",
-            reply_markup=main_menu()
-        )
+            f"Добро пожаловать в BlackTab, {user.first_name}! 👋\n\nОбратите внимание: ниже приведены все сведения, которые могут быть вам полезны.\nПожалуйста, ознакомьтесь с правилами чата"
 
 
 # 🔘 Обработка кнопок
