@@ -78,9 +78,13 @@ responses = [
 # 📌 ГЛАВНОЕ МЕНЮ
 def main_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📜 Правила", callback_data="rules")],
+        [InlineKeyboardButton("📃 Правила", callback_data="rules")],
         [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
-        [InlineKeyboardButton("❓ Помощь", callback_data="help")]
+        [InlineKeyboardButton("❓ Помощь", callback_data="help")],
+        [InlineKeyboardButton("📦 Доставки — нет", callback_data="delivery")],
+        [InlineKeyboardButton("🌐 Сайт", callback_data="site")],
+        [InlineKeyboardButton("📱 ВКонтакте", callback_data="vk")],
+        [InlineKeyboardButton("▶️ YouTube", callback_data="youtube")]
     ])
 
 
@@ -125,16 +129,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📃 Общие правила:\n"
             "• Соблюдайте уважение к другим участникам.\n"
             "• Избегайте провокаций и не участвуйте в конфликтах.\n\n"
-            "❗️ Нарушения, влекущие блокировку без права восстановления:\n"
+            "❗️ Нарушения:\n"
             "• Спам и флуд.\n"
             "• Реклама.\n"
             "• Оскорбления и нецензурная лексика.\n"
-            "• Разжигание ненависти (в том числе по политическим мотивам).\n"
+            "• Разжигание ненависти.\n"
             "• Введение в заблуждение.\n"
-            "• Продажа, покупка или обмен любыми товарами.\n"
-            "• Публикация материалов 18+.\n"
-            "• Дискриминация по любым признакам (раса, пол, возраст, религия, профессия, ориентация и т.д.).\n\n"
-            "Участник, нарушивший правила, будет заблокирован без возможности восстановления доступа к каналу/чату!",
+            "• Продажа или обмен товарами.\n"
+            "• 18+ контент.\n"
+            "• Дискриминация.\n\n"
+            "Блокировка без восстановления при нарушениях.",
             reply_markup=back_button()
         )
 
@@ -147,6 +151,30 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "help":
         await query.edit_message_text(
             "❓ Поддержка: otzyv@blacktab.ru",
+            reply_markup=back_button()
+        )
+
+    elif data == "delivery":
+        await query.edit_message_text(
+            "📦 Доставки:\nК сожалению, мы не осуществляем доставку. По законодательству РФ доставка никотиносодержащей продукции запрещена.",
+            reply_markup=back_button()
+        )
+
+    elif data == "site":
+        await query.edit_message_text(
+            "🌐 Сайт: https://blacktab.ru",
+            reply_markup=back_button()
+        )
+
+    elif data == "vk":
+        await query.edit_message_text(
+            "📱 ВКонтакте: https://vk.com/Blacktab_official",
+            reply_markup=back_button()
+        )
+
+    elif data == "youtube":
+        await query.edit_message_text(
+            "▶️ YouTube: https://www.youtube.com/@Blacktab_official",
             reply_markup=back_button()
         )
 
