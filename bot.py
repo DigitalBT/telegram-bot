@@ -89,7 +89,7 @@ def main_menu():
 
         [
             InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
-            InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")
+            InlineKeyboardButton("🏢 Франшиза", url="https://franchise.blacktab.ru")
         ],
 
         [
