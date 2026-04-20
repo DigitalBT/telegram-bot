@@ -11,7 +11,7 @@ responses = [
             "привет", "приветствую", "здравствуйте", "хай", "хелло", "здрасьте",
             "добрый день", "добрый вечер", "доброе утро"
         ],
-        "Здравствуйте"
+        "Здравствуйте😇"
     ),
 
     (
@@ -79,7 +79,7 @@ responses = [
     ),
 ]
 
-
+# 💬 ОБЫЧНЫЕ СООБЩЕНИЯ
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
@@ -89,7 +89,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await update.message.reply_text(response)
                 return
 
+
+# 👋 ПРИВЕТСТВИЕ НОВЫХ УЧАСТНИКОВ
+async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    for user in update.message.new_chat_members:
+        await update.message.reply_text(
+            f"Добро пожаловать в BlackTab, {user.first_name}! 👋"
+        )
+
+
+# 🚀 ЗАПУСК БОТА
 app = ApplicationBuilder().token(TOKEN).build()
+
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+# 👇 ВАЖНО: обработчик новых участников
+app.add_handler(MessageHandler(filters.StatusUpdate.NEW_CHAT_MEMBERS, welcome_new_member))
 
 app.run_polling()
