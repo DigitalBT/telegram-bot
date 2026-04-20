@@ -75,33 +75,18 @@ responses = [
 ]
 
 
-# 📌 ГЛАВНОЕ МЕНЮ (ТВОЯ НОВАЯ СЕТКА)
+# 📌 ГЛАВНОЕ МЕНЮ (НОВЫЙ ПОРЯДОК 1–9)
 def main_menu():
     return InlineKeyboardMarkup([
-        # 1 ряд — большая кнопка
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
-
-        # 2 ряд — большая кнопка
         [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
-
-        # 3 ряд — 2 кнопки
-        [
-            InlineKeyboardButton("📍 Магазины", callback_data="shops"),
-            InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")
-        ],
-
-        # 4 ряд — 2 кнопки
-        [
-            InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
-            InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")
-        ],
-
-        # 5 ряд — 3 кнопки
-        [
-            InlineKeyboardButton(" Сайт", callback_data="site"),
-            InlineKeyboardButton(" ВКонтакте", callback_data="vk"),
-            InlineKeyboardButton(" YouTube", callback_data="youtube")
-        ]
+        [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
+        [InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")],
+        [InlineKeyboardButton("❓ Обратная связь", callback_data="help")],
+        [InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")],
+        [InlineKeyboardButton("🌐 Сайт", callback_data="site")],
+        [InlineKeyboardButton("📱 ВКонтакте", callback_data="vk")],
+        [InlineKeyboardButton("▶️ YouTube", callback_data="youtube")]
     ])
 
 
@@ -140,23 +125,18 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "rules":
-        await query.edit_message_text(
-            "📃 Правила...\n(твой текст можно сюда вставить)",
-            reply_markup=back_button()
-        )
+        await query.edit_message_text("📃 Правила...", reply_markup=back_button())
 
     elif data == "price":
         await query.edit_message_text(
+            "📦 Цена/Наличие:\n\n"
             "Информацию о стоимости и актуальном наличии товаров просьба уточнять непосредственно в интересующем магазине.\n\n"
             "Карта магазинов BlackTab — https://blacktab.ru/map",
             reply_markup=back_button()
         )
 
     elif data == "shops":
-        await query.edit_message_text(
-            "📍 Магазины BlackTab — https://blacktab.ru/map",
-            reply_markup=back_button()
-        )
+        await query.edit_message_text("📍 Магазины — https://blacktab.ru/map", reply_markup=back_button())
 
     elif data == "delivery":
         await query.edit_message_text(
@@ -165,32 +145,23 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     elif data == "help":
-        await query.edit_message_text(
-            "❓ Обратная связь: otzyv@blacktab.ru",
-            reply_markup=back_button()
-        )
+        await query.edit_message_text("❓ Обратная связь: otzyv@blacktab.ru", reply_markup=back_button())
 
     elif data == "franchise":
         await query.edit_message_text(
-            "По вопросам франшизы: franchise@blacktab.ru" / 8 (800) 222-15-05 (доб. 3),
+            "🏢 Франшиза: franchise@blacktab.ru",
             reply_markup=back_button()
         )
 
     elif data == "site":
-        await query.edit_message_text(
-            "Сайт компании: https://blacktab.ru",
-            reply_markup=back_button()
-        )
+        await query.edit_message_text("🌐 https://blacktab.ru", reply_markup=back_button())
 
     elif data == "vk":
-        await query.edit_message_text(
-            "Сообщество ВКонтакте: https://vk.com/Blacktab_official",
-            reply_markup=back_button()
-        )
+        await query.edit_message_text("📱 https://vk.com/Blacktab_official", reply_markup=back_button())
 
     elif data == "youtube":
         await query.edit_message_text(
-            "YouTube канал: https://www.youtube.com/@Blacktab_official",
+            "▶️ https://www.youtube.com/@Blacktab_official",
             reply_markup=back_button()
         )
 
