@@ -75,20 +75,33 @@ responses = [
 ]
 
 
-# 📌 ГЛАВНОЕ МЕНЮ
+# 📌 ГЛАВНОЕ МЕНЮ (ТВОЯ НОВАЯ СЕТКА)
 def main_menu():
     return InlineKeyboardMarkup([
+        # 1 ряд — большая кнопка
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
-        [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
-        [InlineKeyboardButton("❓ Обратная связь", callback_data="help")],
 
-        # ➕ НОВАЯ КНОПКА
+        # 2 ряд — большая кнопка
         [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
 
-        [InlineKeyboardButton("📦 Доставки — нет", callback_data="delivery")],
-        [InlineKeyboardButton("Сайт", callback_data="site")],
-        [InlineKeyboardButton("ВКонтакте", callback_data="vk")],
-        [InlineKeyboardButton("YouTube", callback_data="youtube")]
+        # 3 ряд — 2 кнопки
+        [
+            InlineKeyboardButton("📍 Магазины", callback_data="shops"),
+            InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")
+        ],
+
+        # 4 ряд — 2 кнопки
+        [
+            InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
+            InlineKeyboardButton("🏢 Франшиза", callback_data="franchise")
+        ],
+
+        # 5 ряд — 3 кнопки
+        [
+            InlineKeyboardButton(" Сайт", callback_data="site"),
+            InlineKeyboardButton(" ВКонтакте", callback_data="vk"),
+            InlineKeyboardButton(" YouTube", callback_data="youtube")
+        ]
     ])
 
 
@@ -110,7 +123,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 return
 
 
-# 👋 Приветствие с кнопками
+# 👋 Приветствие
 async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for user in update.message.new_chat_members:
         await update.message.reply_text(
@@ -128,33 +141,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data == "rules":
         await query.edit_message_text(
-            "Доводим до вашего сведения: вся информация в сообществе носит ознакомительный характер.\n\n"
-            "Вступая в «BlackTab», вы подтверждаете, что достигли 18-летнего возраста.\n\n"
-            "📃 Общие правила:\n"
-            "• Соблюдайте уважение к другим участникам.\n"
-            "• Избегайте провокаций и не участвуйте в конфликтах.\n\n"
-            "❗️ Нарушения:\n"
-            "• Спам и флуд.\n"
-            "• Реклама.\n"
-            "• Оскорбления и нецензурная лексика.\n"
-            "• Разжигание ненависти.\n"
-            "• Введение в заблуждение.\n"
-            "• Продажа или обмен товарами.\n"
-            "• 18+ контент.\n"
-            "• Дискриминация.\n\n"
-            "Блокировка без восстановления при нарушениях.",
-            reply_markup=back_button()
-        )
-
-    elif data == "shops":
-        await query.edit_message_text(
-            "📍 Магазины BlackTab: https://blacktab.ru/map",
-            reply_markup=back_button()
-        )
-
-    elif data == "help":
-        await query.edit_message_text(
-            "❓ Обратная связь: otzyv@blacktab.ru",
+            "📃 Правила...\n(твой текст можно сюда вставить)",
             reply_markup=back_button()
         )
 
@@ -165,9 +152,27 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=back_button()
         )
 
+    elif data == "shops":
+        await query.edit_message_text(
+            "📍 Магазины BlackTab — https://blacktab.ru/map",
+            reply_markup=back_button()
+        )
+
     elif data == "delivery":
         await query.edit_message_text(
             "К сожалению, мы не осуществляем доставку. По законодательству РФ доставка никотиносодержащей продукции запрещена.",
+            reply_markup=back_button()
+        )
+
+    elif data == "help":
+        await query.edit_message_text(
+            "❓ Обратная связь: otzyv@blacktab.ru",
+            reply_markup=back_button()
+        )
+
+    elif data == "franchise":
+        await query.edit_message_text(
+            "По вопросам франшизы: franchise@blacktab.ru" / 8 (800) 222-15-05 (доб. 3),
             reply_markup=back_button()
         )
 
