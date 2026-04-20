@@ -80,7 +80,7 @@ def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
         [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
-        [InlineKeyboardButton("❓ Помощь", callback_data="help")],
+        [InlineKeyboardButton("❓ Обратная связь", callback_data="help")],
         [InlineKeyboardButton("📦 Доставки — нет", callback_data="delivery")],
         [InlineKeyboardButton("🌐 Сайт", callback_data="site")],
         [InlineKeyboardButton("📱 ВКонтакте", callback_data="vk")],
@@ -144,13 +144,13 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "shops":
         await query.edit_message_text(
-            "📍 Магазины: https://blacktab.ru/map",
+            "📍 Магазины BlackTab: https://blacktab.ru/map",
             reply_markup=back_button()
         )
 
     elif data == "help":
         await query.edit_message_text(
-            "❓ Поддержка: otzyv@blacktab.ru",
+            "❓ Обратная связь: otzyv@blacktab.ru",
             reply_markup=back_button()
         )
 
@@ -162,19 +162,19 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "site":
         await query.edit_message_text(
-            "🌐 Сайт: https://blacktab.ru",
+            "🌐 Сайт компании: https://blacktab.ru",
             reply_markup=back_button()
         )
 
     elif data == "vk":
         await query.edit_message_text(
-            "📱 ВКонтакте: https://vk.com/Blacktab_official",
+            "📱 Сообщество ВКонтакте: https://vk.com/Blacktab_official",
             reply_markup=back_button()
         )
 
     elif data == "youtube":
         await query.edit_message_text(
-            "▶️ YouTube: https://www.youtube.com/@Blacktab_official",
+            "▶️ YouTube канал: https://www.youtube.com/@Blacktab_official",
             reply_markup=back_button()
         )
 
