@@ -83,12 +83,12 @@ def main_menu():
         [InlineKeyboardButton("❓ Обратная связь", callback_data="help")],
 
         # ➕ НОВАЯ КНОПКА
-        [InlineKeyboardButton("📦 Цена/Наличие", callback_data="price")],
+        [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
 
         [InlineKeyboardButton("📦 Доставки — нет", callback_data="delivery")],
-        [InlineKeyboardButton("🌐 Сайт", callback_data="site")],
-        [InlineKeyboardButton("📱 ВКонтакте", callback_data="vk")],
-        [InlineKeyboardButton("▶️ YouTube", callback_data="youtube")]
+        [InlineKeyboardButton("Сайт", callback_data="site")],
+        [InlineKeyboardButton("ВКонтакте", callback_data="vk")],
+        [InlineKeyboardButton("YouTube", callback_data="youtube")]
     ])
 
 
@@ -160,7 +160,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "price":
         await query.edit_message_text(
-            "📦 Цена/Наличие:\n\n"
             "Информацию о стоимости и актуальном наличии товаров просьба уточнять непосредственно в интересующем магазине.\n\n"
             "Карта магазинов BlackTab — https://blacktab.ru/map",
             reply_markup=back_button()
@@ -174,19 +173,19 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "site":
         await query.edit_message_text(
-            "🌐 Сайт компании: https://blacktab.ru",
+            "Сайт компании: https://blacktab.ru",
             reply_markup=back_button()
         )
 
     elif data == "vk":
         await query.edit_message_text(
-            "📱 Сообщество ВКонтакте: https://vk.com/Blacktab_official",
+            "Сообщество ВКонтакте: https://vk.com/Blacktab_official",
             reply_markup=back_button()
         )
 
     elif data == "youtube":
         await query.edit_message_text(
-            "▶️ YouTube канал: https://www.youtube.com/@Blacktab_official",
+            "YouTube канал: https://www.youtube.com/@Blacktab_official",
             reply_markup=back_button()
         )
 
