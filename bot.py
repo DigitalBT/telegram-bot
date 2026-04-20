@@ -125,18 +125,34 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "rules":
-        await query.edit_message_text("📃 Правила...", reply_markup=back_button())
+        await query.edit_message_text(
+            "Доводим до вашего сведения: вся информация в сообществе носит ознакомительный характер.\n\n"
+            "Вступая в «BlackTab», вы подтверждаете, что достигли 18-летнего возраста.\n\n"
+            "📃 Общие правила:\n"
+            "• Соблюдайте уважение к другим участникам.\n"
+            "• Избегайте провокаций и не участвуйте в конфликтах.\n\n"
+            "❗️ Нарушения:\n"
+            "• Спам и флуд.\n"
+            "• Реклама.\n"
+            "• Оскорбления и нецензурная лексика.\n"
+            "• Разжигание ненависти.\n"
+            "• Введение в заблуждение.\n"
+            "• Продажа или обмен товарами.\n"
+            "• 18+ контент.\n"
+            "• Дискриминация.\n\n"
+            "Блокировка без восстановления при нарушениях.",
+            reply_markup=back_button()
+        )
 
     elif data == "price":
         await query.edit_message_text(
-            "📦 Цена/Наличие:\n\n"
             "Информацию о стоимости и актуальном наличии товаров просьба уточнять непосредственно в интересующем магазине.\n\n"
             "Карта магазинов BlackTab — https://blacktab.ru/map",
             reply_markup=back_button()
         )
 
     elif data == "shops":
-        await query.edit_message_text("📍 Магазины — https://blacktab.ru/map", reply_markup=back_button())
+        await query.edit_message_text("Магазины BlackTab — https://blacktab.ru/map", reply_markup=back_button())
 
     elif data == "delivery":
         await query.edit_message_text(
@@ -145,23 +161,23 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     elif data == "help":
-        await query.edit_message_text("❓ Обратная связь: otzyv@blacktab.ru", reply_markup=back_button())
+        await query.edit_message_text("Обратная связь: otzyv@blacktab.ru", reply_markup=back_button())
 
     elif data == "franchise":
         await query.edit_message_text(
-            "🏢 Франшиза: franchise@blacktab.ru",
+            "По вопросам франшизы: franchise@blacktab.ru или 8 (800) 222-15-05 (доб. 3)",
             reply_markup=back_button()
         )
 
     elif data == "site":
-        await query.edit_message_text("🌐 https://blacktab.ru", reply_markup=back_button())
+        await query.edit_message_text("Сайт компании: https://blacktab.ru", reply_markup=back_button())
 
     elif data == "vk":
-        await query.edit_message_text("📱 https://vk.com/Blacktab_official", reply_markup=back_button())
+        await query.edit_message_text("Сообщество ВКонтакте: https://vk.com/Blacktab_official", reply_markup=back_button())
 
     elif data == "youtube":
         await query.edit_message_text(
-            "▶️ https://www.youtube.com/@Blacktab_official",
+            "YouTube канал: https://www.youtube.com/@Blacktab_official",
             reply_markup=back_button()
         )
 
