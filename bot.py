@@ -80,7 +80,7 @@ def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("📜 Правила", callback_data="rules")],
         [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
-        [InlineKeyboardButton("❓ Помощь", callback_data="help")]
+        [InlineKeyboardButton("❓ Обратная связь", callback_data="help")]
     ])
 
 
@@ -120,7 +120,28 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data == "rules":
         await query.edit_message_text(
-            "📜 Правила: уважайте участников, без спама и рекламы.",
+            "📜 Правила: Доводим до вашего сведения: вся информация в сообществе носит ознакомительный характер.
+
+Вступая в «BlackTab», вы подтверждаете, что достигли 18-летнего возраста.
+
+
+📃 Общие правила:
+• Соблюдайте уважение к другим участникам.
+• Избегайте провокаций и не участвуйте в конфликтах.
+
+
+❗️ Нарушения, влекущие блокировку без права восстановления:
+• Спам и флуд.
+• Реклама.
+• Оскорбления и нецензурная лексика.
+• Разжигание ненависти (в том числе по политическим мотивам).
+• Введение в заблуждение.
+• Продажа, покупка или обмен любыми товарами.
+• Публикация материалов 18+.
+• Дискриминация по любым признакам (раса, пол, возраст, религия, профессия, ориентация и т.д.).
+
+
+Участник, нарушивший правила, будет заблокирован без возможности восстановления доступа к каналу/чату!",
             reply_markup=back_button()
         )
 
@@ -132,7 +153,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif data == "help":
         await query.edit_message_text(
-            "❓ Поддержка: otzyv@blacktab.ru",
+            "❓ Почта для обратной связи: otzyv@blacktab.ru",
             reply_markup=back_button()
         )
 
