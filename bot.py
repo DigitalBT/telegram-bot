@@ -92,6 +92,13 @@ def normalize(text):
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = normalize(update.message.text)
 
+    # 🔹 1. Проверка на позитив
+    for word in positive_words:
+        if word in text:
+            await update.message.reply_text("Спасибо за отзыв ❤️ Нам очень приятно!")
+            return
+
+    # 🔹 2. Поиск лучшего ответа
     best_match = None
     best_score = 0
 
@@ -108,13 +115,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             best_score = score
             best_match = response
 
-    if best_match:
+    # 🔹 3. Ответ только если нашли совпадение
+    if best_match and best_score > 3:
         await update.message.reply_text(best_match)
-    else:
-        await update.message.reply_text(
-            "Не совсем понял вас 🙃 Напишите подробнее или уточните вопрос."
-        )
 
+    # 🔹 4. ИГНОР если не важно
+    else:
+        return
 
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
