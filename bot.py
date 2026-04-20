@@ -3,6 +3,7 @@ from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTyp
 import os
 
 TOKEN = os.getenv("BOT_TOKEN")
+print("TOKEN:", TOKEN)
 
 responses = [
     ([
