@@ -1,5 +1,5 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 import os
 
 TOKEN = os.getenv("BOT_TOKEN")
@@ -40,46 +40,42 @@ responses = [
 
     (
         [
-            "трудоустройство", "трудоустройства", "трудоустройств",
-            "вакансия", "вакансий", "вакансии", "отдел кадров"
+            "трудоустройство", "вакансия", "вакансии", "отдел кадров"
         ],
         "По вопросам трудоустройства, вы можете обратиться по номеру 8 (800) 222-15-05 (доб. 2)"
     ),
 
     (
         [
-            "франшиза", "франшиз", "франшизы", "франшизе", "франшизу",
-            "франчайзинг", "франчайзингу", "франчайзинга", "франчайзинги",
-            "франчайзи", "франчайзе"
+            "франшиза", "франчайзинг", "франчайзи"
         ],
         "По вопросам франшизы, вы можете обратиться на почту franchise@blacktab.ru или по номеру 8 (800) 222-15-05 (доб. 3)"
     ),
 
     (
         [
-            "жалоба", "жалобу", "жалоб", "жаловаться", "пожалуюсь", "жалобы",
-            "пожаловаться", "обмен", "обмена", "обменять", "поменять",
-            "вернуть", "возврат", "верните", "возвратите"
+            "жалоба", "возврат", "обмен", "поменять"
         ],
         "По вопросам жалоб и предложений, вы можете обратиться на почту otzyv@blacktab.ru"
     ),
 
     (
         [
-            "маленький ассортимент", "слабый ассортимент", "нет выбора", "мало выбора", "слабый выбор"
+            "маленький ассортимент", "нет выбора", "мало выбора"
         ],
-        "Благодарим за Ваш отзыв! Мы постоянно обновляем ассортимент и следим за появлением новинок. Если нужной продукции сейчас нет в наличии, оставьте, пожалуйста, свои контакты в магазине — мы обязательно свяжемся с Вами, как только нужная продукция поступит в продажу."
+        "Благодарим за Ваш отзыв! Мы постоянно обновляем ассортимент."
     ),
 
     (
         [
-            "открыт", "отыркты", "открыто"
+            "открыт", "открыто"
         ],
         "Магазины BlackTab на Яндекс Картах — https://yandex.com/maps/213/moscow/chain/blacktab/41361998584"
     ),
 ]
 
-# 💬 ОБЫЧНЫЕ СООБЩЕНИЯ
+
+# 💬 Обычные сообщения
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
@@ -90,20 +86,45 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 return
 
 
-# 👋 ПРИВЕТСТВИЕ НОВЫХ УЧАСТНИКОВ
+# 👋 Приветствие с кнопками
 async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("📜 Правила", callback_data="rules")],
+        [InlineKeyboardButton("📍 Магазины", callback_data="shops")],
+        [InlineKeyboardButton("❓ Помощь", callback_data="help")]
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
     for user in update.message.new_chat_members:
         await update.message.reply_text(
-            f"Добро пожаловать в BlackTab, {user.first_name}! 👋"
+            f"Добро пожаловать в BlackTab, {user.first_name}! 👋\n\nВыберите, что вас интересует:",
+            reply_markup=reply_markup
         )
 
 
-# 🚀 ЗАПУСК БОТА
+# 🔘 Обработка кнопок
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    data = query.data
+
+    if data == "rules":
+        await query.edit_message_text("📜 Правила: уважайте участников, без спама и рекламы.")
+
+    elif data == "shops":
+        await query.edit_message_text("📍 Магазины: https://blacktab.ru/map")
+
+    elif data == "help":
+        await query.edit_message_text("❓ Поддержка: otzyv@blacktab.ru")
+
+
+# 🚀 Запуск бота
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
-# 👇 ВАЖНО: обработчик новых участников
 app.add_handler(MessageHandler(filters.StatusUpdate.NEW_CHAT_MEMBERS, welcome_new_member))
+app.add_handler(CallbackQueryHandler(button_handler))
 
 app.run_polling()
