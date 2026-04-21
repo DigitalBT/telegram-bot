@@ -103,12 +103,12 @@ def back_button():
 
 # 💬 Обычные сообщения
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower()
+    text = update.message.text.lower().strip()
 
-    # ✅ ответ на "спасибо" (не для админов)
     thanks_words = ["спасибо", "спс", "благодарю", "благодарствую", "сяпки", "пасибо", "пасиба"]
 
-    if any(word in text for word in thanks_words):
+    # ✅ точное совпадение или начало сообщения
+    if any(text == word or text.startswith(word + " ") for word in thanks_words):
         chat_id = update.effective_chat.id
         user_id = update.effective_user.id
 
@@ -117,7 +117,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if member.status not in ["administrator", "creator"]:
             await update.message.reply_text("Всегда пожалуйста 😇")
 
-            # ✅ ИСПРАВЛЕННАЯ РЕАКЦИЯ
             try:
                 await context.bot.set_message_reaction(
                     chat_id=chat_id,
