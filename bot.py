@@ -1,4 +1,4 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReactionTypeEmoji
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 import os
 
@@ -117,12 +117,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if member.status not in ["administrator", "creator"]:
             await update.message.reply_text("Всегда пожалуйста 😇")
 
-            # ✅ СТАВИМ РЕАКЦИЮ (правильный способ)
+            # ✅ ИСПРАВЛЕННАЯ РЕАКЦИЯ
             try:
                 await context.bot.set_message_reaction(
                     chat_id=chat_id,
                     message_id=update.message.message_id,
-                    reaction=[{"type": "emoji", "emoji": "❤️"}]
+                    reaction=[ReactionTypeEmoji("❤️")]
                 )
             except Exception as e:
                 print("Ошибка реакции:", e)
