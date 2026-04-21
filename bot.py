@@ -105,7 +105,7 @@ def back_button():
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
-    # ✅ ДОБАВЛЕНО: ответ на "спасибо" (не для админов)
+    # ✅ ответ на "спасибо" (не для админов)
     thanks_words = ["спасибо", "спс", "благодарю", "благодарствую", "сяпки", "пасибо", "пасиба"]
 
     if any(word in text for word in thanks_words):
@@ -115,14 +115,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         member = await context.bot.get_chat_member(chat_id, user_id)
 
         if member.status not in ["administrator", "creator"]:
-            # ❤️ реакция
-            await context.bot.set_message_reaction(
-                chat_id=chat_id,
-                message_id=update.message.message_id,
-                reaction=["❤️"]
-            )
-
             await update.message.reply_text("Всегда пожалуйста 😇")
+
+            # ✅ СТАВИМ РЕАКЦИЮ (правильный способ)
+            try:
+                await context.bot.set_message_reaction(
+                    chat_id=chat_id,
+                    message_id=update.message.message_id,
+                    reaction=[{"type": "emoji", "emoji": "❤️"}]
+                )
+            except Exception as e:
+                print("Ошибка реакции:", e)
+
             return
 
     for keywords, response in responses:
