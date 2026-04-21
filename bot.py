@@ -1,4 +1,4 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReactionTypeEmoji
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 import os
 
@@ -103,12 +103,12 @@ def back_button():
 
 # 💬 Обычные сообщения
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower().strip()
+    text = update.message.text.lower()
 
+    # ✅ ДОБАВЛЕНО: ответ на "спасибо" (не для админов)
     thanks_words = ["спасибо", "спс", "благодарю", "благодарствую", "сяпки", "пасибо", "пасиба"]
 
-    # ✅ точное совпадение или начало сообщения
-    if any(text == word or text.startswith(word + " ") for word in thanks_words):
+    if any(word in text for word in thanks_words):
         chat_id = update.effective_chat.id
         user_id = update.effective_user.id
 
@@ -116,16 +116,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if member.status not in ["administrator", "creator"]:
             await update.message.reply_text("Всегда пожалуйста 😇")
-
-            try:
-                await context.bot.set_message_reaction(
-                    chat_id=chat_id,
-                    message_id=update.message.message_id,
-                    reaction=[ReactionTypeEmoji("❤️")]
-                )
-            except Exception as e:
-                print("Ошибка реакции:", e)
-
             return
 
     for keywords, response in responses:
