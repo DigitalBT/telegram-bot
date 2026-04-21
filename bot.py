@@ -115,16 +115,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         member = await context.bot.get_chat_member(chat_id, user_id)
 
         if member.status not in ["administrator", "creator"]:
-            # 👉 реакция ❤️
+            # ❤️ реакция
             await context.bot.set_message_reaction(
                 chat_id=chat_id,
                 message_id=update.message.message_id,
                 reaction=["❤️"]
             )
 
-            # 👉 текст как и был
             await update.message.reply_text("Всегда пожалуйста 😇")
             return
+
+    for keywords, response in responses:
+        for key in keywords:
+            if key in text:
+                await update.message.reply_text(response)
+                return
 
 
 # 👋 Приветствие
