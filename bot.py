@@ -75,23 +75,18 @@ responses = [
 ]
 
 
-# 📌 ГЛАВНОЕ МЕНЮ (НОВЫЙ ПОРЯДОК 1–9)
 def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("📃 Правила", callback_data="rules")],
-
         [InlineKeyboardButton("💳 Цена/Наличие", callback_data="price")],
-
         [
             InlineKeyboardButton("📍 Магазины", url="https://blacktab.ru/map"),
             InlineKeyboardButton("📦 Доставки нет", callback_data="delivery")
         ],
-
         [
             InlineKeyboardButton("❓ Обратная связь", callback_data="help"),
             InlineKeyboardButton("🏢 Франшиза", url="https://franchise.blacktab.ru")
         ],
-
         [
             InlineKeyboardButton("🌐 Сайт", url="https://blacktab.ru"),
             InlineKeyboardButton("📱 ВК", url="https://vk.com/Blacktab_official"),
@@ -100,7 +95,6 @@ def main_menu():
     ])
 
 
-# 📌 КНОПКА НАЗАД
 def back_button():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("⬅️ Назад", callback_data="back")]
@@ -110,6 +104,19 @@ def back_button():
 # 💬 Обычные сообщения
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
+
+    # ✅ ДОБАВЛЕНО: ответ на "спасибо" (не для админов)
+    thanks_words = ["спасибо", "спс", "благодарю", "благодарствую", "сяпки", "пасибо", "пасиба"]
+
+    if any(word in text for word in thanks_words):
+        chat_id = update.effective_chat.id
+        user_id = update.effective_user.id
+
+        member = await context.bot.get_chat_member(chat_id, user_id)
+
+        if member.status not in ["administrator", "creator"]:
+            await update.message.reply_text("Всегда пожалуйста 😇")
+            return
 
     for keywords, response in responses:
         for key in keywords:
@@ -198,7 +205,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
-# 🚀 ЗАПУСК БОТА
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
